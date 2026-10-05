@@ -17,6 +17,7 @@ export const Route = createFileRoute("/plan")({
   component: PlanEditor,
 });
 
+const swap = (ds: PlanDay[], i: number, j: number) => { const a = [...ds]; const t = a[i]!; a[i] = a[j]!; a[j] = t; return a; };
 const save = (fn: (d: PlanDay[]) => PlanDay[]) => setState((s) => ({ ...s, planType: "custom", customPlan: fn(s.customPlan) }));
 
 function PlanEditor() {
@@ -32,8 +33,8 @@ function PlanEditor() {
           <div key={d.id} className="rounded-md border">
             <div className="flex items-center gap-2 border-b p-3">
               <input value={d.name} onChange={(e) => updDay(d.id, (x) => ({ ...x, name: e.target.value }))} className="min-w-0 flex-1 rounded-md border bg-background px-2 py-1 font-semibold" />
-              <button disabled={di === 0} onClick={() => save((ds) => { const a = [...ds]; [a[di - 1], a[di]] = [a[di], a[di - 1]]; return a; })} className="px-2 disabled:opacity-30">↑</button>
-              <button disabled={di === days.length - 1} onClick={() => save((ds) => { const a = [...ds]; [a[di + 1], a[di]] = [a[di], a[di + 1]]; return a; })} className="px-2 disabled:opacity-30">↓</button>
+              <button disabled={di === 0} onClick={() => save((ds) => swap(ds, di, di - 1))} className="px-2 disabled:opacity-30">↑</button>
+              <button disabled={di === days.length - 1} onClick={() => save((ds) => swap(ds, di, di + 1))} className="px-2 disabled:opacity-30">↓</button>
               <button onClick={() => confirm("Usunąć dzień?") && save((ds) => ds.filter((x) => x.id !== d.id))} className="px-2 text-destructive">×</button>
             </div>
             <div className="p-3">

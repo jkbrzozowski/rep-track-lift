@@ -85,9 +85,10 @@ export function startWorkout(name: string, day?: PlanDay | undefined) {
 
 export function lastSetsFor(s: State, exerciseId: string): SetEntry[] | undefined {
   for (let i = s.workouts.length - 1; i >= 0; i--) {
-    const e = s.workouts[i].entries.find((x) => x.exerciseId === exerciseId);
+    const e = s.workouts[i]?.entries.find((x) => x.exerciseId === exerciseId);
     if (e) return e.sets;
   }
+  return undefined;
 }
 
 export function updateActive(fn: (w: Workout) => Workout) {
