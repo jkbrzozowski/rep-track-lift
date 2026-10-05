@@ -56,8 +56,9 @@ export function useStore<T>(sel: (s: State) => T): T {
 
 export const uid = () => Math.random().toString(36).slice(2, 10);
 
+const EMPTY_PLAN: PlanDay[] = [];
 export function currentPlan(s: State): PlanDay[] {
-  if (!s.planType) return [];
+  if (!s.planType) return EMPTY_PLAN;
   if (s.planType === "custom") return s.customPlan;
   return PRESET_PLANS[s.planType];
 }
