@@ -1,24 +1,88 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { PageHeader } from "@/components/AppShell";
+import { exerciseById, PLAN_TYPES } from "@/lib/data";
+import { currentPlan, startWorkout, useStore } from "@/lib/store";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Trening — Dziennik treningowy" },
+      { name: "description", content: "Rozpocznij trening z planu lub dowolny i zapisuj serie." },
+      { property: "og:title", content: "Trening — Dziennik treningowy" },
+      { property: "og:description", content: "Rozpocznij trening z planu lub dowolny i zapisuj serie." },
+    ],
+  }),
+  component: TrainingTab,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function TrainingTab() {
+  const planType = useStore((s) => s.planType);
+  const plan = useStore(currentPlan);
+  const active = useStore((s) => s.active);
+  const navigate = useNavigate();
+  const start = (...a: Parameters<typeof startWorkout>) => {
+    startWorkout(...a);
+    navigate({ to: "/workout" });
+  };
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <PageHeader title="Trening" />
+      <div className="space-y-4 p-4">
+        {active && (
+          <Link to="/workout" className="block rounded-md border-2 border-primary p-4">
+            <div className="text-xs uppercase text-muted-foreground">Trening w toku</div>
+            <div className="font-semibold">{active.name} · {active.entries.length} ćw.</div>
+            <div className="text-sm">Wróć do treningu →</div>
+          </Link>
+        )}
+
+        {!planType ? (
+          <div className="rounded-md border p-6 text-center">
+            <p className="font-medium">Nie wybrałeś jeszcze planu</p>
+            <p className="mt-1 text-sm text-muted-foreground">Wybierz plan w profilu lub zacznij trening dowolny.</p>
+            <Link to="/profile" className="mt-4 inline-block rounded-md border px-4 py-2">Wybierz plan</Link>
+          </div>
+        ) : (
+          <section>
+            <div className="mb-2 flex items-baseline justify-between">
+              <h2 className="font-semibold">Plan: {PLAN_TYPES.find((p) => p.id === planType)?.name}</h2>
+              <Link to={planType === "custom" ? "/plan" : "/profile"} className="text-sm underline">
+                {planType === "custom" ? "Edytuj plan" : "Zmień"}
+              </Link>
+            </div>
+            {plan.length === 0 && (
+              <p className="rounded-md border p-4 text-sm text-muted-foreground">
+                Twój plan jest pusty. <Link to="/plan" className="underline">Dodaj dni treningowe</Link>.
+              </p>
+            )}
+            <div className="space-y-2">
+              {plan.map((d) => (
+                <div key={d.id} className="rounded-md border p-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold">{d.name}</h3>
+                    <button disabled={!!active} onClick={() => start(d.name, d)} className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground disabled:opacity-40">
+                      Rozpocznij
+                    </button>
+                  </div>
+                  <ul className="mt-2 space-y-0.5 text-sm text-muted-foreground">
+                    {d.exercises.map((e, i) => (
+                      <li key={i} className="flex justify-between">
+                        <span>{exerciseById(e.exerciseId)?.name}</span>
+                        <span>{e.sets} × {e.reps}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <button disabled={!!active} onClick={() => start("Trening dowolny")} className="w-full rounded-md border-2 border-dashed p-4 font-medium disabled:opacity-40">
+          + Trening dowolny
+        </button>
+      </div>
+    </>
   );
 }
