@@ -112,7 +112,7 @@ function EntryCard({ entry, prev, onChange, onRemove }: {
       </div>
       <div className="p-3">
         <div className="mb-1 grid grid-cols-[2rem_1fr_1fr_3rem_2rem] gap-2 label-mono">
-          <span>Seria</span><span>kg</span><span>Powt.</span><span className="text-center">✓</span><span />
+          <span>#</span><span>kg</span><span>Powt.</span><span className="text-center">✓</span><span />
         </div>
         {entry.sets.map((s, i) => (
           <div key={i} className={`mb-1 grid grid-cols-[2rem_1fr_1fr_3rem_2rem] items-center gap-2 ${s.done ? "opacity-60" : ""}`}>
