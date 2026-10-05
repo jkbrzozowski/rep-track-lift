@@ -30,9 +30,9 @@ function PlanEditor() {
       <PageHeader title="Własny plan" left={<Link to="/" className="text-sm">← Wróć</Link>} />
       <div className="space-y-3 p-4">
         {days.map((d, di) => (
-          <div key={d.id} className="rounded-md border">
+          <div key={d.id} className="surface">
             <div className="flex items-center gap-2 border-b p-3">
-              <input value={d.name} onChange={(e) => updDay(d.id, (x) => ({ ...x, name: e.target.value }))} className="min-w-0 flex-1 rounded-md border bg-background px-2 py-1 font-semibold" />
+              <input value={d.name} onChange={(e) => updDay(d.id, (x) => ({ ...x, name: e.target.value }))} className="min-w-0 flex-1 field px-2 py-1 font-semibold" />
               <button disabled={di === 0} onClick={() => save((ds) => swap(ds, di, di - 1))} className="px-2 disabled:opacity-30">↑</button>
               <button disabled={di === days.length - 1} onClick={() => save((ds) => swap(ds, di, di + 1))} className="px-2 disabled:opacity-30">↓</button>
               <button onClick={() => confirm("Usunąć dzień?") && save((ds) => ds.filter((x) => x.id !== d.id))} className="px-2 text-destructive">×</button>
@@ -41,9 +41,9 @@ function PlanEditor() {
               {d.exercises.map((e, i) => (
                 <div key={i} className="mb-2 grid grid-cols-[minmax(0,1fr)_3.5rem_auto_3.5rem_auto] items-center gap-2 text-sm">
                   <span className="truncate">{exerciseById(e.exerciseId)?.name}</span>
-                  <input type="number" value={e.sets} onChange={(ev) => updDay(d.id, (x) => ({ ...x, exercises: x.exercises.map((y, j) => (j === i ? { ...y, sets: Number(ev.target.value) } : y)) }))} className="rounded-md border bg-background px-2 py-1" />
+                  <input type="number" value={e.sets} onChange={(ev) => updDay(d.id, (x) => ({ ...x, exercises: x.exercises.map((y, j) => (j === i ? { ...y, sets: Number(ev.target.value) } : y)) }))} className="field px-2 py-1" />
                   <span>×</span>
-                  <input type="number" value={e.reps} onChange={(ev) => updDay(d.id, (x) => ({ ...x, exercises: x.exercises.map((y, j) => (j === i ? { ...y, reps: Number(ev.target.value) } : y)) }))} className="rounded-md border bg-background px-2 py-1" />
+                  <input type="number" value={e.reps} onChange={(ev) => updDay(d.id, (x) => ({ ...x, exercises: x.exercises.map((y, j) => (j === i ? { ...y, reps: Number(ev.target.value) } : y)) }))} className="field px-2 py-1" />
                   <button onClick={() => updDay(d.id, (x) => ({ ...x, exercises: x.exercises.filter((_, j) => j !== i) }))} className="text-muted-foreground">×</button>
                 </div>
               ))}
@@ -51,7 +51,7 @@ function PlanEditor() {
             </div>
           </div>
         ))}
-        <button onClick={() => save((ds) => [...ds, { id: uid(), name: `Dzień ${ds.length + 1}`, exercises: [] }])} className="w-full rounded-md border-2 border-dashed p-4 font-medium">
+        <button onClick={() => save((ds) => [...ds, { id: uid(), name: `Dzień ${ds.length + 1}`, exercises: [] }])} className="btn-accent w-full p-4 text-base">
           + Dodaj dzień treningowy
         </button>
       </div>

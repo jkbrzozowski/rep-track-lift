@@ -25,7 +25,7 @@ export function ExercisePicker({ onPick, onClose }: { onPick: (id: string) => vo
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder={group ? `Szukaj w: ${groupName(group)}` : "Szukaj ćwiczenia…"}
-          className="w-full rounded-md border bg-background px-3 py-2"
+          className="w-full field px-3 py-2"
         />
         {!showGroups && (
           <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
@@ -39,12 +39,12 @@ export function ExercisePicker({ onPick, onClose }: { onPick: (id: string) => vo
       <div className="flex-1 overflow-y-auto">
         {showGroups ? (
           <>
-            <p className="px-4 pt-3 text-xs uppercase text-muted-foreground">1. Wybierz partię</p>
+            <p className="px-4 pt-3 label-mono">1. Wybierz partię</p>
             <div className="grid grid-cols-2 gap-2 p-3">
               {MUSCLE_GROUPS.map((m) => (
-                <button key={m.id} onClick={() => setGroup(m.id)} className="rounded-md border p-4 text-left">
+                <button key={m.id} onClick={() => setGroup(m.id)} className="surface p-4 text-left">
                   <div className="font-medium">{m.name}</div>
-                  <div className="text-xs text-muted-foreground">{EXERCISES.filter((e) => e.group === m.id).length} ćwiczeń</div>
+                  <div className="label-mono">{EXERCISES.filter((e) => e.group === m.id).length} ćwiczeń</div>
                 </button>
               ))}
             </div>
@@ -57,7 +57,7 @@ export function ExercisePicker({ onPick, onClose }: { onPick: (id: string) => vo
               <li key={e.id}>
                 <button onClick={() => onPick(e.id)} className="flex w-full justify-between border-b px-4 py-3 text-left">
                   <span>{e.name}</span>
-                  {!group && <span className="text-xs text-muted-foreground">{groupName(e.group)}</span>}
+                  {!group && <span className="label-mono">{groupName(e.group)}</span>}
                 </button>
               </li>
             ))}
