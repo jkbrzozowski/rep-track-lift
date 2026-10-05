@@ -27,7 +27,7 @@ function HistoryPage() {
       <div className="space-y-2 p-4">
         {list.length === 0 && <p className="py-8 text-center text-sm text-muted-foreground">Brak zakończonych treningów.</p>}
         {list.map((w) => (
-          <div key={w.id} className="rounded-md border">
+          <div key={w.id} className="surface">
             <button onClick={() => setOpen(open === w.id ? null : w.id)} className="w-full p-4 text-left">
               <div className="flex justify-between">
                 <span className="font-semibold">{w.name}</span>

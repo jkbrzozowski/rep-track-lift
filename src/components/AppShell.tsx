@@ -22,7 +22,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <main className="mx-auto w-full max-w-2xl flex-1 pb-20 md:pb-8">{children}</main>
       <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t bg-background md:hidden">
         {TABS.map((t) => (
-          <Link key={t.to} to={t.to} activeOptions={{ exact: t.to === "/" }} activeProps={{ className: "font-semibold text-foreground" }} className="py-3 text-center text-xs text-muted-foreground">
+          <Link key={t.to} to={t.to} activeOptions={{ exact: t.to === "/" }} activeProps={{ className: "font-semibold text-foreground" }} className="py-3 text-center label-mono">
             {t.label}
           </Link>
         ))}

@@ -30,18 +30,18 @@ function TrainingTab() {
       <PageHeader title="Trening" />
       <div className="space-y-4 p-4">
         {active && (
-          <Link to="/workout" className="block rounded-md border-2 border-primary p-4">
-            <div className="text-xs uppercase text-muted-foreground">Trening w toku</div>
+          <Link to="/workout" className="block surface border-primary p-4">
+            <div className="label-mono">Trening w toku</div>
             <div className="font-semibold">{active.name} · {active.entries.length} ćw.</div>
             <div className="text-sm">Wróć do treningu →</div>
           </Link>
         )}
 
         {!planType ? (
-          <div className="rounded-md border p-6 text-center">
+          <div className="surface p-6 text-center">
             <p className="font-medium">Nie wybrałeś jeszcze planu</p>
             <p className="mt-1 text-sm text-muted-foreground">Wybierz plan w profilu lub zacznij trening dowolny.</p>
-            <Link to="/profile" className="mt-4 inline-block rounded-md border px-4 py-2">Wybierz plan</Link>
+            <Link to="/profile" className="mt-4 inline-block btn-ghost px-4 py-2">Wybierz plan</Link>
           </div>
         ) : (
           <section>
@@ -52,16 +52,16 @@ function TrainingTab() {
               </Link>
             </div>
             {plan.length === 0 && (
-              <p className="rounded-md border p-4 text-sm text-muted-foreground">
+              <p className="surface p-4 text-sm text-muted-foreground">
                 Twój plan jest pusty. <Link to="/plan" className="underline">Dodaj dni treningowe</Link>.
               </p>
             )}
             <div className="space-y-2">
               {plan.map((d) => (
-                <div key={d.id} className="rounded-md border p-4">
+                <div key={d.id} className="surface p-4">
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold">{d.name}</h3>
-                    <button disabled={!!active} onClick={() => start(d.name, d)} className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground disabled:opacity-40">
+                    <button disabled={!!active} onClick={() => start(d.name, d)} className="btn-accent px-4 py-2 text-sm disabled:opacity-40">
                       Rozpocznij
                     </button>
                   </div>
@@ -79,7 +79,7 @@ function TrainingTab() {
           </section>
         )}
 
-        <button disabled={!!active} onClick={() => start("Trening dowolny")} className="w-full rounded-md border-2 border-dashed p-4 font-medium disabled:opacity-40">
+        <button disabled={!!active} onClick={() => start("Trening dowolny")} className="btn-accent w-full p-4 text-base disabled:opacity-40">
           + Trening dowolny
         </button>
       </div>

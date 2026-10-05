@@ -25,7 +25,7 @@ function ProfilePage() {
           <h2 className="mb-2 font-semibold">Plan treningowy</h2>
           <div className="space-y-2">
             {PLAN_TYPES.map((p) => (
-              <label key={p.id} className={`flex cursor-pointer items-start gap-3 rounded-md border p-4 ${planType === p.id ? "border-primary border-2" : ""}`}>
+              <label key={p.id} className={`flex cursor-pointer items-start gap-3 surface p-4 ${planType === p.id ? "border-primary border-2" : ""}`}>
                 <input type="radio" name="plan" checked={planType === p.id} onChange={() => setState((s) => ({ ...s, planType: p.id }))} className="mt-1" />
                 <div>
                   <div className="font-medium">{p.name}</div>
