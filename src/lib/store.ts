@@ -62,7 +62,7 @@ export function currentPlan(s: State): PlanDay[] {
   return PRESET_PLANS[s.planType];
 }
 
-export function startWorkout(name: string, day?: PlanDay) {
+export function startWorkout(name: string, day?: PlanDay | undefined) {
   setState((s) => ({
     ...s,
     active: {

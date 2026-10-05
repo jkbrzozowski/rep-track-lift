@@ -86,7 +86,7 @@ function WorkoutPage() {
 }
 
 function EntryCard({ entry, prev, onChange, onRemove }: {
-  entry: WorkoutEntry; prev?: { weight: number; reps: number }[];
+  entry: WorkoutEntry; prev?: { weight: number; reps: number }[] | undefined;
   onChange: (fn: (e: WorkoutEntry) => WorkoutEntry) => void; onRemove: () => void;
 }) {
   const ex = exerciseById(entry.exerciseId);
