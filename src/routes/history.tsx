@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHeader } from "@/components/AppShell";
+import { TrainingCalendar } from "@/components/Calendar";
 import { exerciseById } from "@/lib/data";
 import { fmtDuration, setState, useStore, volume } from "@/lib/store";
 
@@ -24,7 +25,9 @@ function HistoryPage() {
   return (
     <>
       <PageHeader title="Historia" />
-      <div className="space-y-2 p-4">
+      <div className="space-y-3 p-4">
+        <TrainingCalendar dates={workouts.map((w) => w.startedAt)} />
+        <h2 className="label-mono pt-2">Treningi</h2>
         {list.length === 0 && <p className="py-8 text-center text-sm text-muted-foreground">Brak zakończonych treningów.</p>}
         {list.map((w) => (
           <div key={w.id} className="surface">

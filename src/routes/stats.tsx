@@ -35,8 +35,8 @@ function StatsPage() {
       <PageHeader title="Statystyki" />
       <div className="space-y-4 p-4">
         <div className="grid grid-cols-2 gap-2">
-          <div className="surface p-4"><div className="label-mono">Treningi</div><div className="text-2xl font-semibold">{workouts.length}</div></div>
-          <div className="surface p-4"><div className="label-mono">Łączna objętość</div><div className="text-2xl font-semibold">{totalVol} kg</div></div>
+          <div className="tile p-4"><div className="text-sm font-semibold">Treningi</div><div className="display mt-6 text-6xl">{workouts.length}</div></div>
+          <div className="tile p-4"><div className="text-sm font-semibold">Objętość</div><div className="display mt-6 text-6xl">{totalVol}</div><div className="label-mono">kg łącznie</div></div>
         </div>
         <h2 className="font-semibold">Ćwiczenia</h2>
         {byExercise.length === 0 && <p className="text-sm text-muted-foreground">Zakończ pierwszy trening, by zobaczyć postępy.</p>}
