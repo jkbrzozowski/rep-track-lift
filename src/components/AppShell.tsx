@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { BarChart3, CalendarDays, Dumbbell, User } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -10,6 +10,8 @@ const TABS = [
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  if (pathname === "/login") return <main className="mx-auto min-h-screen w-full max-w-2xl">{children}</main>;
   return (
     <div className="min-h-screen md:flex">
       <nav className="hidden w-60 shrink-0 border-r bg-sidebar/60 p-5 md:block">
