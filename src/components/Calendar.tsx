@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const DAYS = ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"];
 const key = (d: Date) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
@@ -21,8 +22,8 @@ export function TrainingCalendar({ dates }: { dates: number[] }) {
           <div className="label-mono">{cursor.getFullYear()} · {monthCount} treningów</div>
         </div>
         <div className="flex gap-2">
-          <button aria-label="Poprzedni miesiąc" onClick={() => shift(-1)} className="btn-ghost grid h-10 w-10 place-items-center"><ChevronLeft className="h-4 w-4" /></button>
-          <button aria-label="Następny miesiąc" onClick={() => shift(1)} className="btn-ghost grid h-10 w-10 place-items-center"><ChevronRight className="h-4 w-4" /></button>
+          <Button variant="secondary" size="icon" aria-label="Poprzedni miesiąc" onClick={() => shift(-1)} className="h-10 w-10 rounded-full"><ChevronLeft /></Button>
+          <Button variant="secondary" size="icon" aria-label="Następny miesiąc" onClick={() => shift(1)} className="h-10 w-10 rounded-full"><ChevronRight /></Button>
         </div>
       </div>
       <div className="grid grid-cols-7 gap-1.5 text-center">
@@ -32,7 +33,7 @@ export function TrainingCalendar({ dates }: { dates: number[] }) {
           const k = key(new Date(cursor.getFullYear(), cursor.getMonth(), i + 1));
           const on = trained.has(k);
           return (
-            <div key={k} className={`grid aspect-square place-items-center rounded-lg font-mono text-sm ${on ? "bg-primary font-semibold text-primary-foreground" : "bg-muted text-muted-foreground"} ${k === today ? "ring-1 ring-foreground" : ""}`}>
+            <div key={k} aria-label={`${i + 1} ${cursor.toLocaleDateString("pl-PL", { month: "long" })}${on ? ", dzień treningowy" : ""}`} className={`grid aspect-square place-items-center rounded-lg font-mono text-sm ${on ? "bg-training-day font-semibold text-primary-foreground" : "bg-muted text-muted-foreground"} ${k === today ? "ring-1 ring-foreground" : ""}`}>
               {i + 1}
             </div>
           );
