@@ -15,7 +15,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen md:flex">
       <nav className="hidden w-60 shrink-0 border-r bg-sidebar/60 p-5 md:block">
-        <div className="display mb-8 text-3xl">Lift<span className="text-primary">.</span>Log</div>
+        <div className="display mb-8 text-3xl">Progressus</div>
         <div className="space-y-1">
           {TABS.map((t) => (
             <Link key={t.to} to={t.to} activeOptions={{ exact: t.to === "/" }}
